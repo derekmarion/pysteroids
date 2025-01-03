@@ -24,7 +24,11 @@ def main():
 
         screen.fill((0, 0, 0))
         player.draw(screen)
+
+        # Update player with delta time to move and rotate
         player.update(delta_time)
+
+        # Update the display
         pygame.display.flip()
 
         # Limit frame rate to 60 FPS
