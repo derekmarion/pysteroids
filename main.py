@@ -13,8 +13,14 @@ def main():
     game_clock = pygame.time.Clock()
     delta_time = 0
 
-    # Player
+    # Group definitions
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    # Player definition
     player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, PLAYER_RADIUS)
+    updatable.add(player)
+    drawable.add(player)
 
     # Game loop
     while running:
@@ -23,10 +29,13 @@ def main():
                 running = False
 
         screen.fill((0, 0, 0))
-        player.draw(screen)
 
-        # Update player with delta time to move and rotate
-        player.update(delta_time)
+        # Iterate through all drawable objects and draw them
+        for drawable_object in drawable:
+            drawable_object.draw(screen)
+        # Iterate through all updatable objects and update them
+        for updatable_object in updatable:
+            updatable_object.update(delta_time)
 
         # Update the display
         pygame.display.flip()
