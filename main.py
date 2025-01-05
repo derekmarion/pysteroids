@@ -42,9 +42,16 @@ def main():
         # Iterate through all drawable objects and draw them
         for drawable_object in drawable:
             drawable_object.draw(screen)
+
         # Iterate through all updatable objects and update them
         for updatable_object in updatable:
             updatable_object.update(delta_time)
+        
+        # Check for collisions
+        for asteroid in asteroids:
+            if player.detect_collision(asteroid):
+                running = False
+                print("Game Over")
 
         # Update the display
         pygame.display.flip()
