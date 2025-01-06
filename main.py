@@ -51,12 +51,20 @@ def main():
         # Iterate through all updatable objects and update them
         for updatable_object in updatable:
             updatable_object.update(delta_time)
-        
-        # Check for collisions
+
+        # Check for collisions between player and asteroids
         for asteroid in asteroids:
             if player.detect_collision(asteroid):
                 running = False
                 print("Game Over")
+
+        # Check for collisions between shots and asteroids
+        for shot in shots:
+            for asteroid in asteroids:
+                if shot.detect_collision(asteroid):
+                    shot.kill()
+                    asteroid.split()
+                    break
 
         # Update the display
         pygame.display.flip()
